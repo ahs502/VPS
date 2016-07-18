@@ -1,0 +1,22 @@
+
+    Modify 'gulp nginx' to config static website contents too.
+
+    Modify 'gulp default' according to config.env .
+
+
+
+    See how StrongLoop Process Manager can help deployment in production environment. Link: http://strong-pm.io/
+    Compare it to PM2 Production Process Manager, Link: https://www.npmjs.com/package/pm2
+
+
+
+    Wire all fixed paths from config.js to gulpfile.js & so on.
+
+
+
+
+
+
+
+
+

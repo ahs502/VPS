@@ -3,6 +3,13 @@ var config = {
     /* Server IP address */
     serverIp: "176.9.194.237",
 
+    // /*
+    // Local port to run Node.js server on for development, 12345 by default.
+    // NOTE:
+    //     It should be the same for the project under development's port number.
+    // */
+    // port: 8081, // 5 ports will be reserved (from port to port + 4) when setting BrowserSync.
+
     /*
     Bind9 name server configurations.
     First domain will be used for reverse zone.
@@ -36,15 +43,19 @@ var config = {
             // }
         },
 
+        "asanaz.ir": {
+            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
+        },
+
         "hesamhesab.ir": {
             subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
         },
 
-        "mehrnoosh72.ir": {
+        "minush.ir": {
             subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
         },
 
-        "minush.ir": {
+        "a7f.ir": {
             subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
         },
 
@@ -76,33 +87,31 @@ var config = {
 
         "ahs502.ir": "http://localhost:8010",
         "test.ahs502.ir": "http://localhost:8019",
+        "dev.ahs502.ir": "http://localhost:50304",
         "ide.ahs502.ir": "http://localhost:8080",
 
-        "hesamhesab.ir": "http://localhost:8020",
-        "test.hesamhesab.ir": "http://localhost:8029",
-        "ide.hesamhesab.ir": "http://localhost:8080",
+        "asanaz.ir": "http://localhost:50310",
+        "test.asanaz.ir": "http://localhost:50309",
+        "dev.asanaz.ir": "http://localhost:50304",
 
-        "mehrnoosh72.ir": "http://localhost:8030",
-        "test.mehrnoosh72.ir": "http://localhost:8039",
-        "ide.mehrnoosh72.ir": "http://localhost:8080",
+        // "hesamhesab.ir": "http://localhost:8020",
+        // "test.hesamhesab.ir": "http://localhost:8029",
 
-        "minush.ir": "http://localhost:8040",
-        "test.minush.ir": "http://localhost:8049",
-        "ide.minush.ir": "http://localhost:8080",
+        // "minush.ir": "http://localhost:8040",
+        // "test.minush.ir": "http://localhost:8049",
 
-        /*
-        browser-sync domain settings.
-        All fields are optional.
-        */
-        browserSync: {
-
-            dev: "dev.ahs502.ir", //: port & port + 1
-            ui: "bs.ahs502.ir", //: port + 2
-            weinre: "weinre.ahs502.ir", //: port + 3
-
-            port: null, // By default = (process.env['PORT'] || 12345) + 1
-
-        }
+        // /*
+        // BrowserSync global domain configuration.
+        // All fields are optional.
+        // NOTE:
+        //     browserSync.dev must be the same as
+        //     browserSync.developeOn for the project currently in development.
+        // */
+        // browserSync: {
+        //     dev: "dev.ahs502.ir", //: port + 1 & port + 2
+        //     ui: "bs.ahs502.ir", //: port + 3
+        //     weinre: "weinre.ahs502.ir", //: port + 4
+        // }
 
     },
 
@@ -118,13 +127,15 @@ var config = {
 Set all default values
 */
 
+config.port = config.port || process.env['PORT'] || 12345;
+
 config.bind9 = config.bind9 || {};
 
 config.nginx = config.nginx || {};
 
 config.nginx.browserSync = config.nginx.browserSync || {};
 config.nginx.browserSync.domains = config.nginx.browserSync.domains || {};
-config.nginx.browserSync.port = config.nginx.browserSync.port || ((process.env['PORT'] || 12345) + 1);
+config.nginx.browserSync.port = config.nginx.browserSync.port || (config.port + 1);
 
 if (config.nginx.browserSync.domains.dev) {
     config.nginx[config.nginx.browserSync.domains.dev] = "http://localhost:" + config.nginx.browserSync.port;

@@ -43,15 +43,11 @@ var config = {
             // }
         },
 
+        "javabazmayesh.ir": {
+            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
+        },
+
         "asanaz.ir": {
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
-        },
-
-        "hesamhesab.ir": {
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
-        },
-
-        "minush.ir": {
             subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
         },
 
@@ -86,19 +82,17 @@ var config = {
     nginx: {
 
         "ahs502.ir": "http://localhost:8010",
+        "ide.ahs502.ir": "http://localhost:8080",
         "test.ahs502.ir": "http://localhost:8019",
         "dev.ahs502.ir": "http://localhost:50304",
-        "ide.ahs502.ir": "http://localhost:8080",
 
-        "asanaz.ir": "http://localhost:50310",
-        "test.asanaz.ir": "http://localhost:50309",
-        "dev.asanaz.ir": "http://localhost:50304",
+        "javabazmayesh.ir": "http://localhost:50310",
+        "test.javabazmayesh.ir": "http://localhost:50309",
+        "dev.javabazmayesh.ir": "http://localhost:50304",
 
-        // "hesamhesab.ir": "http://localhost:8020",
-        // "test.hesamhesab.ir": "http://localhost:8029",
-
-        // "minush.ir": "http://localhost:8040",
-        // "test.minush.ir": "http://localhost:8049",
+        // "asanaz.ir": "http://localhost:50310",
+        // "test.asanaz.ir": "http://localhost:50309",
+        // "dev.asanaz.ir": "http://localhost:50304",
 
         // /*
         // BrowserSync global domain configuration.

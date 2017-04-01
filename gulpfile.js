@@ -155,9 +155,9 @@ gulp.task('nginx', () => {
                 "        proxy_set_header Connection 'upgrade';\n" +
                 "        proxy_set_header Host $host;\n" +
                 "        proxy_cache_bypass $http_upgrade;\n" +
-                "        # proxy_set_header X-Real-IP $remote_addr;\n" +
-                "        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
-                "        # proxy_set_header X-Forwarded-Proto $scheme;\n" +
+                "        proxy_set_header X-Real-IP $remote_addr;\n" +
+                "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
+                "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
                 "    }\n";
         }
         data +=

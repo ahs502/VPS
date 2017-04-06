@@ -44,15 +44,15 @@ var config = {
         },
 
         "javabazmayesh.ir": {
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
+            subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "demo"]
         },
 
         "asanaz.ir": {
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
+            subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "demo"]
         },
 
         "a7f.ir": {
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"]
+            subdomains: ["www"]
         },
 
     },
@@ -84,10 +84,10 @@ var config = {
         "ahs502.ir": "http://localhost:8010",
         "ide.ahs502.ir": "http://localhost:8080",
         "test.ahs502.ir": "http://localhost:8019",
-        "dev.ahs502.ir": "http://localhost:50304",
 
         "javabazmayesh.ir": "http://localhost:50310",
-        "test.javabazmayesh.ir": "http://localhost:50309",
+        "demo.javabazmayesh.ir": "http://localhost:50309",
+        "test.javabazmayesh.ir": "http://localhost:50307",
         "dev.javabazmayesh.ir": "http://localhost:50304",
 
         // "asanaz.ir": "http://localhost:50310",

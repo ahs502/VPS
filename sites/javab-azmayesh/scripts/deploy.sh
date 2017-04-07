@@ -32,6 +32,7 @@ node -e "var fs = require('fs');
          conf = conf.slice(0, conf.indexOf(ph)) + econf + conf.slice(conf.indexOf(ph) + ph.length);
          fs.writeFileSync('${SITE}/config.js', conf);"
 
-pm2 start $FOLDER/site/bin/start -n $APP
+pm2 start $SITE/bin/start -n $APP
+pm2 save
 
 echo " => Finished deploying JavabAzmayesh in ${ENV} environment."

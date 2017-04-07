@@ -128,42 +128,96 @@ gulp.task('bind9', callback => {
 gulp.task('nginx', () => {
     util.log(" -> [" + 'nginx'.yellow + "] Configuring nginx on your server...");
 
-    var data = "",
-        routesAll = (config && config.nginx) || {},
-        routes = {},
-        domain;
-
-    for (domain in routesAll) {
-        var refinedDomain = (domain.slice(-1) != '/' ? (domain + '/') : domain)
-        var domainName = refinedDomain.slice(0, refinedDomain.indexOf('/')).trim(),
-            domainPath = refinedDomain.slice(refinedDomain.indexOf('/')).trim();
-        routes[domainName] = routes[domainName] || {};
-        routes[domainName][domainPath] = routesAll[domain];
+    /*
+    config.nginx := {
+        "http": {
+            "test.ahs502.ir/some/path/": "http://localhost:8019/",
+            "ide.ahs502.ir/": "http://localhost:8080/",
+            "test.javabazmayesh.ir/": "http://localhost:50307/",
+            "dev.javabazmayesh.ir/": "http://localhost:50304/",
+            "ahs502.ir www.ahs502.ir": "http://localhost:8010/"
+        },
+        "https": {
+            "demo.javabazmayesh.ir/": [
+                "http://localhost:50309/",
+                "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
+                "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
+            ],
+            "javabazmayesh.ir www.javabazmayesh.ir": [
+                "http://localhost:50310/",
+                "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
+                "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
+            ]
+        }
     }
+    */
 
-    for (domain in routes) {
+    var data = "";
+
+    for (let domainCollection in config.nginx.http) {
+        let serverName = domainCollection.indexOf('/') >= 0 ? domainCollection.slice(0, domainCollection.indexOf('/')) : domainCollection;
+        let urlPath = domainCollection.indexOf('/') >= 0 ? domainCollection.slice(domainCollection.indexOf('/')) : '/';
+
         data +=
             "server {\n" +
             "    listen 80;\n" +
-            "    server_name " + domain + ";\n";
-        for (var route in routes[domain]) {
-            data +=
-                "    location " + (route => ((route.slice(-1) != "/") ? (route + "/") : route))((route.slice(0, 1) != "/") ? ("/" + route) : route) + " {\n" +
-                "        proxy_pass " + (route => ((route.slice(-1) != "/") ? (route + "/") : route))(routes[domain][route]) + ";\n" +
-                "        proxy_http_version 1.1;\n" +
-                "        proxy_set_header Upgrade $http_upgrade;\n" +
-                "        proxy_set_header Connection 'upgrade';\n" +
-                "        proxy_set_header Host $host;\n" +
-                "        proxy_cache_bypass $http_upgrade;\n" +
-                "        proxy_set_header X-Real-IP $remote_addr;\n" +
-                "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
-                "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
-                "    }\n";
-        }
-        data +=
+            "    server_name " + serverName + ";\n" +
+            "    location " + urlPath + " {\n" +
+            "        proxy_pass " + config.nginx.http[domainCollection] + ";\n" +
+            "        proxy_http_version 1.1;\n" +
+            "        proxy_set_header Upgrade $http_upgrade;\n" +
+            "        proxy_set_header Connection 'upgrade';\n" +
+            "        proxy_set_header Host $host;\n" +
+            "        proxy_cache_bypass $http_upgrade;\n" +
+            "        proxy_set_header X-Real-IP $remote_addr;\n" +
+            "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
+            "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
+            "    }\n" +
             "}\n" +
             "\n";
     }
+
+    for (let domainCollection in config.nginx.https) {
+        let serverName = domainCollection.indexOf('/') >= 0 ? domainCollection.slice(0, domainCollection.indexOf('/')) : domainCollection;
+        let urlPath = domainCollection.indexOf('/') >= 0 ? domainCollection.slice(domainCollection.indexOf('/')) : '/';
+        let routeData = config.nginx.https[domainCollection];
+
+        data +=
+            "server {\n" +
+            "    listen 80;\n" +
+            "    server_name " + serverName + ";\n" +
+            "    return 301 https://$server_name$request_uri;\n" +
+            "}\n" +
+            "\n" +
+            "server {\n" +
+            "    listen 443 ssl;\n" +
+            "    server_name " + serverName + ";\n" +
+            "\n" +
+            "    ssl_certificate_key " + routeData[1] + ";\n" +
+            "    ssl_certificate " + routeData[2] + ";\n" +
+            "\n" +
+            "    ssl on;\n" +
+            "    ssl_session_cache builtin:1000 shared:SSL:10m;\n" +
+            "    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;\n" +
+            "    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;\n" +
+            "    ssl_prefer_server_ciphers on;\n" +
+            "\n" +
+            "    location " + urlPath + " {\n" +
+            "        proxy_pass " + routeData[0] + ";\n" +
+            "        proxy_http_version 1.1;\n" +
+            "        proxy_set_header Upgrade $http_upgrade;\n" +
+            "        proxy_set_header Connection 'upgrade';\n" +
+            "        proxy_set_header Host $host;\n" +
+            "        proxy_cache_bypass $http_upgrade;\n" +
+            "        proxy_set_header X-Real-IP $remote_addr;\n" +
+            "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
+            "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
+            "    }\n" +
+            "}\n" +
+            "\n";
+    }
+
+// console.log(data)
 
     return file('default', data, {
             src: true

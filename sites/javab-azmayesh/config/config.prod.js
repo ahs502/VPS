@@ -8,7 +8,10 @@ var config = {
     /*-------------------------------------*/
     port: /*-------------------------------*/ 50310,
     domain: /*-----------------------------*/ "javabazmayesh.ir",
-    protocol: /*---------------------------*/ "http",
+    /*-------------------------------------*/
+    protocol: /*---------------------------*/ "https",
+    private_key_path: /*-------------------*/ "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
+    certificate_path: /*-------------------*/ "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem",
     /*-------------------------------------*/
     storage_path: /*-----------------------*/ "/root/sites/javab-azmayesh/prod/data",
     upload_path: /*------------------------*/ "/root/sites/javab-azmayesh/prod/files",

@@ -30,6 +30,7 @@ var config = {
     google_recaptcha_public_key: /*--------*/ "6LexDAwUAAAAAPXalUBl6eGUWa3dz7PrXXa-a7EG",
     /*-------------------------------------*/
     enable_statistics: /*------------------*/ false,
+    enable_sms_limits: /*------------------*/ true, // See: ./src/modules/sms.js >> smsLimits
     /*-------------------------------------*/
 
 };

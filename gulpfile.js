@@ -217,8 +217,6 @@ gulp.task('nginx', () => {
             "\n";
     }
 
-// console.log(data)
-
     return file('default', data, {
             src: true
         })

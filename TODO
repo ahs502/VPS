@@ -1,5 +1,21 @@
 
-    Modify 'gulp nginx' to config static website contents too. /*LOW PRIORITY*/
+    
+    *   Release management should be according some special commit number.
+    
+    *   Add scripts for certificate renewal to npm.
+    *   Run this command to renew certificates:
+            # certbot renew --dry-run
+        And, this one to generate new certificates:
+            # certbot certonly
+        See this for more information: https://certbot.eff.org or https://certbot.eff.org/#ubuntuxenial-nginx
+    
+    
+    
+    
+    
+    -   Modify 'gulp nginx' to config static website contents too. /*LOW PRIORITY*/
+    
+    
 
 
 

@@ -78,10 +78,10 @@ var config = {
             ...
         }
     assuming ((some where)) is something like
-        8080 or "8080" or (The host will be considered to be on 'localhost' by default)
+        8080 or "8080" or (The host will be considered to be 'localhost' by default)
         "localhost:8080" or (The protocol will be considered to be 'http://' by default)
         "http://localhost:8080" or generally
-        "http://somehostname:port/some/path"
+        "http://hostname:port/some/path"
     NOTE:
         If you map 'domain.ir/zxc' to 'somewhereelse', then
         a request to 'domain.ir/zxc' will be redirected to 'somewhereelse/zxc' ('/zxc' will not be discarded) and
@@ -98,8 +98,8 @@ var config = {
             "ide.ahs502.ir": 8080,
             "test.ahs502.ir": 8019,
 
-            "test.javabazmayesh.ir": 50307,
             "dev.javabazmayesh.ir": 50304,
+            "test.javabazmayesh.ir": 50307,
         },
 
         https: {

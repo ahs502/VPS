@@ -1,10 +1,6 @@
 {
   "name": "VPS",
-  "scripts": {
-    "ja-test": "./sites/javab-azmayesh/scripts/deploy.sh test",
-    "ja-demo": "./sites/javab-azmayesh/scripts/deploy.sh demo",
-    "ja-live": "./sites/javab-azmayesh/scripts/deploy.sh live"
-  },
+  "scripts": {},
   "version": "0.0.0",
   "private": true,
   "dependencies": {

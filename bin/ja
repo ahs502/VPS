@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# version
+# version env
+# version env 1.2.3
+# config env
+# deploy
+# deploy env
+# stop env
+# start env
+# restart env
+# delete env
+
+COM=$1
+ENV=$2
+ARG=$3
+
+VPS=/root/VPS
+JA=$VPS/sites/javab-azmayesh
+CONFIG=$JA/config
+VERSIONS=$CONFIG/versions.json
+SCRIPTS=$JA/scripts
+DEPLOY=$SCRIPTS/deploy.sh
+
+cd $VPS
+
+if [ "$ENV" != "test" ] && [ "$ENV" != "demo" ] && [ "$ENV" != "live" ] && [ "$ENV" != "" ]; then
+    echo ERROR: Supported environments are: test, demo and live.
+    exit 1
+fi
+
+if [ "$COM" == "version" ]; then
+    if [ "$ENV" == "" ]; then
+        cat $VERSIONS
+        echo
+    else
+        if [ "$ARG" == "" ]; then
+            node -e "var fs = require('fs');
+                     var versions = JSON.parse(fs.readFileSync('${VERSIONS}'));
+                     console.log(versions['${ENV}']);"
+        else
+            node -e "var fs = require('fs');
+                     var versions = JSON.parse(fs.readFileSync('${VERSIONS}'));
+                     versions['${ENV}'] = '${ARG}';
+                     fs.writeFileSync('${VERSIONS}', JSON.stringify(versions, null, 4));"
+            cat $VERSIONS
+            echo
+        fi
+    fi
+    exit 0
+fi
+
+if [ "$COM" == "config" ]; then
+    if [ "$ENV" == "" ]; then
+        echo ERROR: No environment has been specified.
+        exit 1
+    else
+        cat $CONFIG/config.$ENV.js
+        echo
+        exit 0
+    fi
+fi
+
+if [ "$COM" == "deploy" ]; then
+    if [ "$ENV" == "" ]; then
+        $DEPLOY test
+        $DEPLOY demo
+        $DEPLOY live
+    else
+        $DEPLOY $ENV
+    fi
+    exit 0
+fi
+
+if [ "$COM" == "stop" ] || [ "$COM" == "start" ] || [ "$COM" == "restart" ] || [ "$COM" == "delete" ]; then
+    if [ "$ENV" == "" ]; then
+        echo ERROR: No environment has been specified.
+        exit 1
+    else
+        pm2 $COM ja-$ENV
+        pm2 save
+        exit 0
+    fi
+fi
+
+################################################################################
+
+echo
+echo '    Usage:'
+echo
+echo '        $ ja COMMAND [ENVIRENMENT] [ARGUMENTS]'
+echo
+echo '    In details:'
+echo
+echo '        $ ja version                Prints all environments versions'
+echo '        $ ja version ENV            Prints the environment version for ENV'
+echo '        $ ja version ENV VER        Sets version VER for the environment ENV'
+echo
+echo '        $ ja config ENV             Prints configurations for the environment ENV'
+echo
+echo '        $ ja deploy                 Deploys the website for all the environments'
+echo '        $ ja deploy ENV             Deploys the website for the environment ENV'
+echo
+echo '        $ ja stop|start|restart|delete ENV'
+echo '                                    Stops|Starts|Restarts|Deletes the'
+echo '                                    website for the environment ENV using pm2'
+echo
+
+################################################################################

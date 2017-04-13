@@ -1,8 +1,10 @@
 #!/bin/bash
 
 ENV=$1
-CONFIG=/root/VPS/sites/javab-azmayesh/config/config.${ENV}.js
-FOLDER=/root/sites/javab-azmayesh/${ENV}
+ROOT=/root
+CONFIG=$ROOT/VPS/sites/javab-azmayesh/config/config.${ENV}.js
+VERSIONS=$ROOT/VPS/sites/javab-azmayesh/config/versions.json
+FOLDER=$ROOT/sites/javab-azmayesh/${ENV}
 SITE=$FOLDER/site
 APP=ja-$ENV
 
@@ -18,7 +20,18 @@ cd $SITE
 
 git reset --hard HEAD
 git clean -f
-git pull
+git pull origin master
+
+VERSION=$(node -e "var fs = require('fs');
+         var versions = JSON.parse(fs.readFileSync('${VERSIONS}'));
+         console.log(versions['${ENV}'])")
+COMMIT=($(git log --grep $VERSION))
+COMMIT=${COMMIT[1]}
+if [[ -z "${COMMIT// }" ]]; then
+    echo ERROR: Version $VERSION not found.
+    exit 1
+fi
+git checkout -f $COMMIT
 
 sudo npm install
 

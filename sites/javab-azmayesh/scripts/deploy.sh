@@ -14,7 +14,7 @@ pm2 delete --silent $APP
 
 if [ ! -d $SITE ]; then
     mkdir -p $FOLDER
-    git clone git@github.com:ahs502/javab-azmayesh.git $SITE
+    git clone git@gitlab.com:ahs502/javab-azmayesh.git $SITE
 fi
 
 cd $SITE

@@ -13,6 +13,10 @@
 
     # npm install -g gulp pm2
 
+>> Setup PM2 on system startup:
+
+    # pm2 startup
+
 >> Install Cloud9:
 
     -> See: https://github.com/c9/core/

@@ -1,7 +1,7 @@
 >> Install some Debian packages:
 
     # apt-get update
-    # apt-get install -y build-essential python2.7 bind9 nginx nano
+    # apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip
 
 >> Install Node.js (7.x for now):
 
@@ -13,25 +13,82 @@
 
     # npm install -g gulp pm2
 
->> Install and run Cloud9:
+>> Install Cloud9:
 
-    (See: https://github.com/c9/core/)
+    -> See: https://github.com/c9/core/
+
+>> Run Cloud9 forever:
+
     # pm2 start ~/c9sdk/server.js -n c9 -- --auth "hessam:ahs 502" --listen 0.0.0.0 -w ~ --port 8080
     # pm2 save
 
->> Create a new SSH key and add it to GitHub's account.
+>> Create a new SSH key and add it to remote repository service's account.
 
->> Clone VPS project from GitHub:
+>> Configure git:
+
+    # git config --global user.email "ahs502@gmail.com"
+    # git config --global user.name "Hessam A Shokravi"
+
+>> Get VPS project:
 
     # git clone git@github.com:ahs502/VPS.git
-    # cd VPS
-    # npm i
+    # cd VPS/
+    VPS# npm i
 
 >> Configure BIND9 and Nginx: (Within the 'VPS/' folder)
 
-    # nano config.js   # Configure the settings
-    # gulp
+    VPS# nano config.js   # Configure the settings
+    VPS# gulp
+    VPS# cd
 
+>> Add '~/VPS/bin' to PATH:
 
+    # echo 'export PATH="/root/VPS/bin:$PATH"' >> ~/.bashrc
+    # source ~/.bashrc   # Opional, you can alse restart terminal
 
+>> Get JavabAzmayesh project:
+
+    # git clone git@github.com:ahs502/javab-azmayesh.git
+    # cd javab-azmayesh/
+    javab-azmayesh# sudo npm i   # 'sudo' is needed
+    javab-azmayesh# cd
+
+>> Transport site files to the new server:
+
+    -> First, remove any website code files from sites/ folder, then at source server:
+    # zip -0 -q -r sites.zip sites
+    # scp sites.zip hessam@185.86.181.94:/home/hessam
+    # rm sites.zip
+    
+    -> And at destination server:
+    # mv /home/hessam/sites.zip .
+    # unzip sites.zip
+    # rm sites.zip
+
+>> Make SSL certificates with certbot: (See: https://certbot.eff.org/#ubuntuxenial-nginx)
+
+    -> Install certbot:
+    # add-apt-repository ppa:certbot/certbot
+    # apt-get update
+    # apt-get install -y certbot
+
+    -> Make sure you've turned off Nginx first:
+    # service nginx stop
+
+    -> Create certificates: (You may use 'standalone' mode, make sure to set the websites' name servers before)
+    # certbot certonly
+    -> Or simply: (You may specify some other domains)
+    # certbot certonly --standalone -d javabazmayesh.ir -d www.javabazmayesh.ir -d demo.javabazmayesh.ir
+
+    -> Renew all certificates:
+    # certbot renew --dry-run
+    
+    -> You can turn on enginx again:
+    # service nginx start
+
+>> Deploy the websites you want:
+
+    # ja deploy test
+    # ja deploy demo
+    ...
 

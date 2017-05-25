@@ -11,7 +11,7 @@
 
 >> Install some global NPM packages:
 
-    # npm install -g gulp pm2
+    # npm install -g bower gulp pm2
 
 >> Setup PM2 on system startup:
 

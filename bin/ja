@@ -79,6 +79,11 @@ if [ "$COM" == "stop" ] || [ "$COM" == "start" ] || [ "$COM" == "restart" ] || [
     else
         pm2 $COM ja-$ENV
         pm2 save
+        
+        #if [ "$COM" == "delete" ]; then
+        #    rm -rf <all site files>
+        #fi
+        
         exit 0
     fi
 fi

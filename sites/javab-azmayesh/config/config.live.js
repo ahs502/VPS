@@ -25,6 +25,11 @@ var config = {
     nik_sms_password: /*-------------------*/ "nspassword",
     nik_sms_main_number: /*----------------*/ "50004545454545",
     /*-------------------------------------*/
+    email_transporter_service: /*----------*/ 'gmail',
+    email_transporter_username: /*---------*/ 'JavabAzmayesh.ArtinCo@gmail.com',
+    email_transporter_password: /*---------*/ 'javabazmayesh',
+    email_sender_display_name: /*----------*/ "Javab Azmayesh [DO NOT REPLY]",
+    /*-------------------------------------*/
     google_recaptcha: /*-------------------*/ true,
     google_recaptcha_secret_key: /*--------*/ "6LexDAwUAAAAAP7U7z8YEIcI006D8KGajx3WtR31",
     google_recaptcha_public_key: /*--------*/ "6LexDAwUAAAAAPXalUBl6eGUWa3dz7PrXXa-a7EG",
@@ -33,6 +38,8 @@ var config = {
     enable_sms_limits: /*------------------*/ true, // See: ./src/modules/sms.js >> smsLimits
     /*-------------------------------------*/
     minified_app_sources: /*---------------*/ true,
+    /*-------------------------------------*/
+    post_price: /*-------------------------*/ 1000, // Tomans
     /*-------------------------------------*/
 
 };

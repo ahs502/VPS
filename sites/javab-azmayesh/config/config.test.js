@@ -34,6 +34,9 @@ var config = {
     google_recaptcha_secret_key: /*--------*/ "6LexDAwUAAAAAP7U7z8YEIcI006D8KGajx3WtR31",
     google_recaptcha_public_key: /*--------*/ "6LexDAwUAAAAAPXalUBl6eGUWa3dz7PrXXa-a7EG",
     /*-------------------------------------*/
+    telegram_bot_name: /*------------------*/ "@JaTestBot",
+    telegram_bot_api_token: /*-------------*/ "397071034:AAHUF403bate7MF9Mo0Zvn78jKRf2Z6wHSI",
+    /*-------------------------------------*/
     enable_statistics: /*------------------*/ false,
     enable_sms_limits: /*------------------*/ true, // See: ./src/modules/sms.js >> smsLimits
     /*-------------------------------------*/

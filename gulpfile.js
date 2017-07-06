@@ -1,3 +1,5 @@
+var childProcess = require('child_process');
+
 var gulp = require("gulp");
 var util = require("gulp-util");
 var concat = require('gulp-concat');
@@ -182,6 +184,9 @@ gulp.task('nginx', () => {
         let urlPath = domainCollection.indexOf('/') >= 0 ? domainCollection.slice(domainCollection.indexOf('/')) : '/';
         let routeData = config.nginx.https[domainCollection];
 
+        var publicKeyBase64EncodedFingerprint = childProcess.execSync('openssl x509 -pubkey < ' + routeData[2] + ' | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | base64')
+            .toString().replace(/\r?\n|\r/g, '');
+
         data +=
             "server {\n" +
             "    listen 80;\n" +
@@ -212,6 +217,12 @@ gulp.task('nginx', () => {
             "        proxy_set_header X-Real-IP $remote_addr;\n" +
             "        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n" +
             "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
+            "        add_header X-Frame-Options DENY;\n" +
+            "        add_header X-XSS-Protection \"1; mode=block\";\n" +
+            "        add_header X-Content-Type-Options nosniff;\n" +
+            "        add_header Content-Security-Policy \"default-src 'self';\";\n" +
+            "        add_header Public-Key-Pins 'pin-sha256=\"" + publicKeyBase64EncodedFingerprint + "\"; max-age=2592000';\n" +
+            "        add_header Strict-Transport-Security \"max-age=31536000\" always;\n" +
             "    }\n" +
             "}\n" +
             "\n";

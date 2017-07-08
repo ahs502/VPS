@@ -220,7 +220,7 @@ gulp.task('nginx', () => {
             "        add_header X-Frame-Options DENY;\n" +
             "        add_header X-XSS-Protection \"1; mode=block\";\n" +
             // "        add_header X-Content-Type-Options nosniff;\n" + // Violates JavabAzmayesh.ir HTML file.
-            "        add_header Content-Security-Policy \"default-src 'self';\";\n" +
+            // "        add_header Content-Security-Policy \"default-src 'self';\";\n" +
             "        add_header Public-Key-Pins 'pin-sha256=\"" + publicKeyBase64EncodedFingerprint + "\"; max-age=2592000';\n" +
             "        add_header Strict-Transport-Security \"max-age=31536000\" always;\n" +
             "    }\n" +

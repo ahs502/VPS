@@ -18,6 +18,7 @@ var config = {
     /*-------------------------------------*/
     confirmation_expires_after: /*---------*/ 10, // Hours
     user_access_key_expires_after: /*------*/ 24, // Hours
+    long_user_access_key_expires_after: /*-*/ 24 * 7, // Hours
     /*-------------------------------------*/
     cryptr_key: /*-------------------------*/ "---InTheNameOfGOD---",
     /*-------------------------------------*/

@@ -18,6 +18,7 @@ var config = {
     /*-------------------------------------*/
     confirmation_expires_after: /*---------*/ 1, // Hours
     user_access_key_expires_after: /*------*/ 1, // Hours
+    long_user_access_key_expires_after: /*-*/ 2, // Hours
     /*-------------------------------------*/
     cryptr_key: /*-------------------------*/ "- test 1234567890 cryptr key -",
     /*-------------------------------------*/

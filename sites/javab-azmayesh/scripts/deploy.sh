@@ -61,7 +61,11 @@ node -e "var fs = require('fs');
          conf = conf.slice(0, conf.indexOf(ph)) + econf + conf.slice(conf.indexOf(ph) + ph.length);
          fs.writeFileSync('${SITE}/config.js', conf);"
 
-pm2 start $SITE/bin/start -n $APP
+if [ "$ENV" != "demo" ] && [ "$ENV" != "live" ]; then
+    pm2 start $SITE/bin/start -n $APP
+else
+    NODE_ENV=production pm2 start $SITE/bin/start -n $APP
+fi
 pm2 save
 
 echo " => Finished deploying JavabAzmayesh in ${ENV} environment."

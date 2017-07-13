@@ -219,8 +219,8 @@ gulp.task('nginx', () => {
             "        proxy_set_header X-Forwarded-Proto $scheme;\n" +
             "        add_header X-Frame-Options DENY;\n" +
             "        add_header X-XSS-Protection \"1; mode=block\";\n" +
-            // "        add_header X-Content-Type-Options nosniff;\n" + // Violates JavabAzmayesh.ir HTML file.
-            // "        add_header Content-Security-Policy \"default-src 'self';\";\n" +
+            "        add_header X-Content-Type-Options nosniff;\n" +
+            // "        add_header Content-Security-Policy \"default-src 'self';\";\n" + // Managed within the app itself, because it's very application specific.
             "        add_header Public-Key-Pins 'pin-sha256=\"" + publicKeyBase64EncodedFingerprint + "\"; max-age=2592000';\n" +
             "        add_header Strict-Transport-Security \"max-age=31536000\" always;\n" +
             "    }\n" +

@@ -41,10 +41,13 @@ var config = {
     enable_statistics: /*------------------*/ true,
     enable_sms_limits: /*------------------*/ true, // See: ./src/modules/sms.js >> smsLimits
     /*-------------------------------------*/
-    minified_app_sources: /*---------------*/ true,
-    developer_modal: /*--------------------*/ false,
+    zarinpal_merchant_code: /*-------------*/ "3261166c-6be0-11e7-8e75-005056a205be", // Empty to disable
     /*-------------------------------------*/
     post_price: /*-------------------------*/ 1000, // Tomans
+    paper_post_price: /*-------------------*/ 5000, // Tomans
+    /*-------------------------------------*/
+    minified_app_sources: /*---------------*/ true,
+    developer_modal: /*--------------------*/ false,
     /*-------------------------------------*/
 
 };

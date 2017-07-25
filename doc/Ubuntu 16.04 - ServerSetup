@@ -34,6 +34,13 @@
 
 >> Create a new SSH key and add it to remote repository service's account.
 
+>> Ensure the DNS (Domain Name Service) works fine:
+
+    # nano /etc/network/interfaces
+    -> Below the line "iface eth0 inet static" append this line: "dns-nameservers 8.8.8.8 8.8.4.4".
+    # /etc/init.d/networking restart
+    -> If still 'ping' or 'nslookup' can not resolve a domain, reboot the server.
+
 >> Configure git:
 
     # git config --global user.email "ahs502@gmail.com"

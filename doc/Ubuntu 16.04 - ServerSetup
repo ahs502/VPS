@@ -7,6 +7,8 @@
 
     # nano /etc/nginx/nginx.conf
     -> Uncomment the line "server_tokens off;"
+    -> Add the line "client_max_body_size 20M;" to http or server or location context
+       to increase the size limit for file upload (depend on your application requirements)
     # service nginx restart
 
 >> Install Node.js (7.x for now):
@@ -22,6 +24,13 @@
 >> Setup PM2 on system startup:
 
     # pm2 startup
+
+>> Ensure the time zone to be 'Asia/Tehran':
+
+    # timedatectl
+    -> If it is not right, find your time zone and set it
+    # timedatectl list-timezones
+    # timedatectl set-timezone Asia/Tehran
 
 >> Install Cloud9:
 
@@ -63,6 +72,26 @@
     # echo 'export PATH="/root/VPS/bin:$PATH"' >> ~/.bashrc
     # source ~/.bashrc   # Opional, you can alse restart terminal
 
+// >> Install Neo4j: (See: neo4j.org)
+// 
+//     # wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -
+//     # echo 'deb https://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list
+//     # apt-get update
+//     # apt-get install -y neo4j
+//     -> Set initial password for user 'neo4j':
+//     # neo4j-admin set-initial-password neo4j!
+//     # neo4j start
+//     # neo4j status
+//     
+//     -> If it is not runnung, try this:
+//     # mkdir /var/run/neo4j
+//     # chown neo4j /var/run/neo4j
+//     -> And this:
+//     # ps aux | grep java
+//     # kill -9 <any java process on neo4j>
+//     -> Then try again:
+//     # neo4j start
+
 >> Get JavabAzmayesh project:
 
     # git clone git@github.com:ahs502/javab-azmayesh.git
@@ -87,7 +116,7 @@
     -> Install certbot:
     # add-apt-repository ppa:certbot/certbot
     # apt-get update
-    # apt-get install -y certbot
+    # apt-get install -y certbot python-certbot-nginx
 
     -> Make sure you've turned off Nginx first:
     # service nginx stop

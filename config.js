@@ -32,7 +32,7 @@ var config = {
             // ns: ["ns1"],
             // mail: "mail",
             // root: "host",
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test"],
+            subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "neo4j"],
             // data: {
             //     "ns1": "A",
             //     "mail": "A",
@@ -49,10 +49,6 @@ var config = {
 
         // "asanaz.ir": {
         //     subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "demo"]
-        // },
-
-        // "a7f.ir": {
-        //     subdomains: ["www"]
         // },
 
     },
@@ -97,6 +93,8 @@ var config = {
             "ahs502.ir": 8010,
             "ide.ahs502.ir": 8080,
             "test.ahs502.ir": 8019,
+
+            "neo4j.ahs502.ir": 7474,
 
             "dev.javabazmayesh.ir": 50304,
             "test.javabazmayesh.ir": 50307,

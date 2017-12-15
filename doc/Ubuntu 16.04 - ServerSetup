@@ -11,10 +11,9 @@
        to increase the size limit for file upload (depend on your application requirements)
     # service nginx restart
 
->> Install Node.js (7.x for now):
+>> Install Node.js (9.x for now):
 
-    # apt-get install python-software-properties
-    # curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
+    # curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
     # apt-get install nodejs
 
 >> Install some global NPM packages:
@@ -28,23 +27,27 @@
 >> Ensure the time zone to be 'Asia/Tehran':
 
     # timedatectl
-    -> If it is not right, find your time zone and set it
+    -> If it is not correct, find your time zone and set it
     # timedatectl list-timezones
     # timedatectl set-timezone Asia/Tehran
 
 >> Install Cloud9:
 
     -> See: https://github.com/c9/core/
+    -> Run the installation script with "sudo" keyword.
 
 >> Run Cloud9 forever:
 
     # pm2 start ~/c9sdk/server.js -n c9 -- --auth "hessam:ahs 502" --listen 0.0.0.0 -w ~ --port 8080
     # pm2 save
 
->> Create a new SSH key and add it to remote repository service's account.
+>> Create a new SSH key and add it to remote repository service's account:
+
+    -> See: https://help.github.com/articles/connecting-to-github-with-ssh/
 
 >> Ensure the DNS (Domain Name Service) works fine:
 
+    -> Test 'ping' or 'nslookup' on a domain to see if it can resolve it or not. If not do the following:
     # nano /etc/network/interfaces
     -> Below the line "iface eth0 inet static" append this line: "dns-nameservers 8.8.8.8 8.8.4.4".
     # /etc/init.d/networking restart
@@ -57,7 +60,7 @@
 
 >> Get VPS project:
 
-    # git clone git@github.com:ahs502/VPS.git
+    # git clone git@gitlab.com:ahs502/VPS.git
     # cd VPS/
     VPS# npm i
 

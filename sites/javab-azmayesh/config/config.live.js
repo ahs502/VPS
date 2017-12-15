@@ -28,7 +28,7 @@ var config = {
     /*-------------------------------------*/
     email_transporter_service: /*----------*/ 'gmail',
     email_transporter_username: /*---------*/ 'JavabAzmayesh.ArtinCo@gmail.com',
-    email_transporter_password: /*---------*/ 'javabazmayesh',
+    email_transporter_password: /*---------*/ 'artinjapassword',
     email_sender_display_name: /*----------*/ "Javab Azmayesh [DO NOT REPLY]",
     /*-------------------------------------*/
     google_recaptcha: /*-------------------*/ true,

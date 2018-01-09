@@ -43,8 +43,9 @@ var config = {
     /*-------------------------------------*/
     zarinpal_merchant_code: /*-------------*/ "3261166c-6be0-11e7-8e75-005056a205be", // Empty to disable
     /*-------------------------------------*/
-    post_price: /*-------------------------*/ 2000, // Tomans
-    paper_post_price: /*-------------------*/ 4000, // Tomans
+    cost_profiles: /*----------------------*/ [0, 1000, 2000, 3000], // What the patient pays in tomans
+    cost_minimum_charge: /*----------------*/ 1000, // Tomans
+    cost_paper_delivery: /*----------------*/ 5000, // Tomans
     /*-------------------------------------*/
     minified_app_sources: /*---------------*/ true,
     developer_modal: /*--------------------*/ false,

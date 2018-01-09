@@ -40,6 +40,11 @@
 
     # pm2 start ~/c9sdk/server.js -n c9 -- --auth "hessam:ahs 502" --listen 0.0.0.0 -w ~ --port 8080
     # pm2 save
+    -> Check if Cloud9 IDE is running well:
+    # pm2 list
+    # pm2 logs c9
+    -> If it has the error "Error: Cannot find module 'c9/urls'" maybe this would fix the problem:
+    # cd c9sdk; git reset --hard; cd
 
 >> Create a new SSH key and add it to remote repository service's account:
 

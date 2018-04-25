@@ -32,7 +32,10 @@ var config = {
             // ns: ["ns1"],
             // mail: "mail",
             // root: "host",
-            subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "neo4j"],
+            subdomains: [
+                "www", "ide", "dev", "bs", "weinre", "test",
+                "neo4j", "shop", "eco", "mn", "yad",
+            ],
             // data: {
             //     "ns1": "A",
             //     "mail": "A",
@@ -95,6 +98,10 @@ var config = {
             "test.ahs502.ir": 8019,
 
             "neo4j.ahs502.ir": 7474,
+            "shop.ahs502.ir": 6871,
+            "eco.ahs502.ir": 6872,
+            "mn.ahs502.ir": 6873,
+            "yad.ahs502.ir": 6874,
 
             "dev.javabazmayesh.ir": 50304,
             "test.javabazmayesh.ir": 50307,

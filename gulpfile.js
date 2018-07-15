@@ -247,6 +247,16 @@ gulp.task('default', ['bind9', 'nginx']);
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
+gulp.task('no-https', done => {
+    Object.keys(config.nginx.https).forEach(httpsDomain => config.nginx.http[httpsDomain] = config.nginx.https[httpsDomain][0]);
+    config.nginx.https = {};
+    done();
+});
+
+gulp.task('ns', ['no-https', 'default']);
+
+//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
+
 gulp.task('help', callback => {
 
     //TODO: Upgrade help:

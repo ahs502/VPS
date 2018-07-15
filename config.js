@@ -1,7 +1,7 @@
 var config = {
 
     /* Server IP address */
-    serverIp: "185.86.181.94",
+    serverIp: "176.9.194.237",
 
     // /*
     // Local port to run Node.js server on for development, 12345 by default.
@@ -34,7 +34,8 @@ var config = {
             // root: "host",
             subdomains: [
                 "www", "ide", "dev", "bs", "weinre", "test",
-                "neo4j", "shop", "eco", "mn", "yad",
+                "neo4j",
+                "shop", "eco", "mn", "yad",
             ],
             // data: {
             //     "ns1": "A",
@@ -50,9 +51,9 @@ var config = {
             subdomains: ["www", "dev", "test", "demo"]
         },
 
-        // "asanaz.ir": {
-        //     subdomains: ["www", "ide", "dev", "bs", "weinre", "test", "demo"]
-        // },
+        "aipaco.ir": {
+            subdomains: ["www", "test"]
+        },
 
     },
 
@@ -98,6 +99,7 @@ var config = {
             "test.ahs502.ir": 8019,
 
             "neo4j.ahs502.ir": 7474,
+
             "shop.ahs502.ir": 6871,
             "eco.ahs502.ir": 6872,
             "mn.ahs502.ir": 6873,
@@ -105,6 +107,9 @@ var config = {
 
             "dev.javabazmayesh.ir": 50304,
             "test.javabazmayesh.ir": 50307,
+
+            "aipaco.ir": 18010,
+            "test.aipaco.ir": 18019,
         },
 
         https: {

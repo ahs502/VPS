@@ -1,0 +1,150 @@
+>> Install some Debian packages:
+
+    # apt-get update
+    # apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip
+
+>> Pre-config Nginx:
+
+    # nano /etc/nginx/nginx.conf
+    -> Uncomment the line "server_tokens off;"
+    -> Add the line "client_max_body_size 20M;" to http or server or location context
+       to increase the size limit for file upload (depend on your application requirements)
+    # service nginx restart
+
+>> Install Node.js (9.x for now):
+
+    # curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+    # apt-get install nodejs
+
+>> Install some global NPM packages:
+
+    # npm install -g bower gulp pm2 express-generator
+
+>> Setup PM2 on system startup:
+
+    # pm2 startup
+
+>> Ensure the time zone to be 'Asia/Tehran':
+
+    # timedatectl
+    -> If it is not correct, find your time zone and set it
+    # timedatectl list-timezones
+    # timedatectl set-timezone Asia/Tehran
+
+>> Install Cloud9:
+
+    -> See: https://github.com/c9/core/
+    -> Run the installation script with "sudo" keyword.
+
+>> Run Cloud9 forever:
+
+    # pm2 start ~/c9sdk/server.js -n c9 -- --auth "hessam:ahs 502" --listen 0.0.0.0 -w ~ --port 8080
+    # pm2 save
+    -> Check if Cloud9 IDE is running well:
+    # pm2 list
+    # pm2 logs c9
+    -> If it has the error "Error: Cannot find module 'c9/urls'" maybe this would fix the problem:
+    # cd c9sdk; git reset --hard; cd
+
+>> Create a new SSH key and add it to remote repository service's account:
+
+    -> See: https://help.github.com/articles/connecting-to-github-with-ssh/
+
+>> Ensure the DNS (Domain Name Service) works fine:
+
+    -> Test 'ping' or 'nslookup' on a domain to see if it can resolve it or not. If not do the following:
+    # nano /etc/network/interfaces
+    -> Below the line "iface eth0 inet static" append this line: "dns-nameservers 8.8.8.8 8.8.4.4".
+    # /etc/init.d/networking restart
+    -> If still 'ping' or 'nslookup' can not resolve a domain, reboot the server.
+
+>> Configure git:
+
+    # git config --global user.email "ahs502@gmail.com"
+    # git config --global user.name "Hessam A Shokravi"
+
+>> Get VPS project:
+
+    # git clone git@gitlab.com:ahs502/VPS.git
+    # cd VPS/
+    VPS# npm i
+
+>> Configure Bind9 and Nginx: (Within the 'VPS/' folder)
+
+    VPS# nano config.js   # Configure the settings
+    VPS# gulp
+    VPS# cd
+
+>> Add '~/VPS/bin' to PATH:
+
+    # echo 'export PATH="/root/VPS/bin:$PATH"' >> ~/.bashrc
+    # source ~/.bashrc   # Opional, you can alse restart terminal
+
+// >> Install Neo4j: (See: neo4j.org)
+// 
+//     # wget -O - https://debian.neo4j.org/neotechnology.gpg.key | sudo apt-key add -
+//     # echo 'deb https://debian.neo4j.org/repo stable/' | sudo tee /etc/apt/sources.list.d/neo4j.list
+//     # apt-get update
+//     # apt-get install -y neo4j
+//     -> Set initial password for user 'neo4j':
+//     # neo4j-admin set-initial-password neo4j!
+//     # neo4j start
+//     # neo4j status
+//     
+//     -> If it is not runnung, try this:
+//     # mkdir /var/run/neo4j
+//     # chown neo4j /var/run/neo4j
+//     -> And this:
+//     # ps aux | grep java
+//     # kill -9 <any java process on neo4j>
+//     -> Then try again:
+//     # neo4j start
+
+>> Get JavabAzmayesh project:
+
+    # git clone git@github.com:ahs502/javab-azmayesh.git
+    # cd javab-azmayesh/
+    javab-azmayesh# sudo npm i   # 'sudo' is needed
+    javab-azmayesh# cd
+
+>> Transport site files to the new server:
+
+    -> First, remove any website code files from sites/ folder, then at source server:
+    # zip -0 -q -r sites.zip sites
+    # scp sites.zip hessam@185.86.181.94:/home/hessam
+    # rm sites.zip
+    
+    -> And at destination server:
+    # mv /home/hessam/sites.zip .
+    # unzip sites.zip
+    # rm sites.zip
+
+>> Make SSL certificates with certbot: (See: https://certbot.eff.org/#ubuntuxenial-nginx)
+
+    -> Install certbot:
+    # add-apt-repository ppa:certbot/certbot
+    # apt-get update
+    # apt-get install -y certbot python-certbot-nginx
+
+    -> Make sure you've turned off Nginx first:
+    # service nginx stop
+
+    -> Create certificates: (You may use 'standalone' mode, make sure to set the websites' name servers before)
+    # certbot certonly
+    -> Or simply: (You may specify some other domains)
+    # certbot certonly --standalone -d javabazmayesh.ir -d www.javabazmayesh.ir -d demo.javabazmayesh.ir
+
+    -> You can turn on enginx again:
+    # service nginx start
+
+    -> Renew all certificates (Every three months for example):
+    # certbot renew --dry-run
+    -> Or this combination:
+    # service nginx stop; certbot renew --dry-run; service nginx start
+    
+>> Deploy the websites you want:
+
+    # ja deploy test
+    # ja deploy demo
+    ...
+

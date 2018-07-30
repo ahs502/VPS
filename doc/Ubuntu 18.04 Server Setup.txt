@@ -11,16 +11,19 @@
     # adduser hessam
     # usermod -aG sudo hessam
 
->> Install some Debian packages:
-
-    # apt-get update
-    # apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip
-
 >> Upgrade Ubuntu packages:
 
-    # apt update
-    # apt upgrade -y
+    # apt update; apt upgrade -y
+    # apt dist-upgrade
     # apt autoremove
+
+>> Upgrade Ubuntu version:
+
+    # apt install update-manager-core; do-release-upgrade -d
+
+>> Install some Debian packages:
+
+    # apt-get update; apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip
 
 >> Pre-config Nginx:
 
@@ -78,13 +81,11 @@
 
 >> Configure git:
 
-    # git config --global user.email "ahs502@gmail.com"
-    # git config --global user.name "Hessam A Shokravi"
+    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessam A Shokravi"
 
 >> Get VPS project:
 
-    # git clone git@gitlab.com:ahs502/VPS.git
-    # cd VPS/
+    # git clone git@gitlab.com:ahs502/VPS.git; cd VPS/
     VPS# npm i
 
 >> Configure Bind9 and Nginx: (Within the 'VPS/' folder)
@@ -131,15 +132,15 @@
 
     -> First, remove any website code files from sites/ folder, then at source server:
     # zip -0 -q -r data.zip sites ahs502 projects   # List all files/folders you want to transport
-    # scp data.zip root@ahs502.ir:/root; rm data.zip
+    # scp data.zip root@ahs502.ir:/root
+    # rm data.zip
     
     -> And at destination server:
     # unzip -q data.zip; rm data.zip
 
 >> Get JavabAzmayesh project:
 
-    # git clone git@gitlab.com:ahs502/javab-azmayesh.git
-    # cd javab-azmayesh/
+    # git clone git@gitlab.com:ahs502/javab-azmayesh.git; cd javab-azmayesh/
     javab-azmayesh# sudo npm i   # 'sudo' is needed
     javab-azmayesh# cd
 

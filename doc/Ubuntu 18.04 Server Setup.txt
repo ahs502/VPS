@@ -128,6 +128,59 @@
     -> Or this combination:
     # service nginx stop; certbot renew --dry-run; service nginx start
     
+>> Setup Dropbox service:
+
+    # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+    # ~/.dropbox-dist/dropboxd
+    -> It will run Dropbox and make Dropbox folder, but stops by Ctrl+C. To install Dropbox cli:
+    # wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py"; chmod +x /usr/local/bin/dropbox
+    # dropbox start
+    # dropbox status
+    -> To make it run forever, create this file:
+    # nano /etc/systemd/system/dropbox.service
+    -> Fill it by:
+--------------------------------------------------------------------------------
+[Unit]
+Description=Dropbox Service
+After=network.target
+
+[Service]
+ExecStart=/bin/sh -c '/usr/local/bin/dropbox start'
+ExecStop=/bin/sh -c '/usr/local/bin/dropbox stop'
+PIDFile=${HOME}/.dropbox/dropbox.pid
+User=root
+Group=sudo
+Type=forking
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
+--------------------------------------------------------------------------------
+    # systemctl daemon-reload; systemctl enable dropbox
+    # systemctl start dropbox
+    # systemctl status dropbox   # If not activated yet, try starting it again.
+
+>> Restore backup data from Dropbox into their project folders:
+
+    ???
+
+>> Setup periodic auto-backup data folders into the Dropbox:
+
+    -> Add periodic tasks to the file /etc/crontab:
+    # nano /etc/crontab
+--------------------------------------------------------------------------------
+@hourly root rsync -av --delete /root/ahs502/balance-statistics/data/ Dropbox/backup/eco
+@hourly root rsync -av --delete /root/ahs502/online-shopping-list/data/ Dropbox/backup/shop
+@hourly root rsync -av --delete /root/ahs502/prayers-counter/data/ Dropbox/backup/mn
+
+@daily root rsync -av --delete /root/sites/javab-azmayesh/live/data Dropbox/backup/ja/data
+@daily root rsync -av --delete /root/sites/javab-azmayesh/live/files Dropbox/backup/ja/files
+--------------------------------------------------------------------------------
+    -> Save the file, all done.
+
 >> Transport other files to the new server:
 
     -> First, remove any website code files from sites/ folder, then at source server:
@@ -157,5 +210,9 @@
     # pm2 start ~/ahs502/prayers-counter/bin/www -n mn
     ...
     # pm2 save
+
+
+
+
 
 

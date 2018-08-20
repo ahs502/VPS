@@ -34,7 +34,7 @@ var config = {
             // root: "host",
             subdomains: [
                 "www", "ide", "dev", "bs", "weinre", "test",
-                "neo4j",
+                "neo4j", "ng", "ws", "tejarat",
                 "shop", "eco", "mn", "yad",
             ],
             // data: {
@@ -99,6 +99,9 @@ var config = {
             "test.ahs502.ir": 8019,
 
             "neo4j.ahs502.ir": 7474,
+            "ng.ahs502.ir": 4203,
+            "ws.ahs502.ir": 5541,
+            "tejarat.ahs502.ir": 4964,
 
             "shop.ahs502.ir": 6871,
             "eco.ahs502.ir": 6872,

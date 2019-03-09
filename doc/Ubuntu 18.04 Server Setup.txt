@@ -19,7 +19,13 @@
 
 >> Upgrade Ubuntu version:
 
+    # reboot   # Maybe it's required after the previous step
+    -> VERY IMPORTANT:
+       The following command changes the port of the SSH deamon,
+       it is very important to note to its initial message.
     # apt install update-manager-core; do-release-upgrade -d
+    -> To check if the version has been updated successfully
+    # lsb_release -a
 
 >> Install some Debian packages:
 
@@ -33,10 +39,10 @@
        to increase the size limit for file upload (depend on your application requirements)
     # service nginx restart
 
->> Install Node.js (10.x for now): (JavabAzmayesh project is only supported by older versions of nodejs, for example 9.x)
+>> Install Node.js (11.x for now): (JavabAzmayesh project is only supported by older versions of nodejs, for example 9.x)
 
-    # curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-    # apt-get install -y nodejs gcc g++ make
+    # curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+    # apt-get install -y nodejs gcc g++ make && node -v
 
 >> Install some global NPM packages:
 
@@ -56,6 +62,9 @@
 >> Install Cloud9:
 
     -> See: https://github.com/c9/core/
+    # git clone https://github.com/c9/core.git c9sdk && cd c9sdk && scripts/install-sdk.sh
+    -> To update to the latest version:
+    # git pull origin master && scripts/install-sdk.sh
 
 >> Run Cloud9 forever:
 
@@ -70,6 +79,9 @@
 >> Create a new SSH key and add it to remote repository service's account:
 
     -> See: https://help.github.com/articles/connecting-to-github-with-ssh/
+    # ssh-keygen -t rsa -b 4096 -C "ahs502@gmail.com"
+    # eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa
+    # cat .ssh/id_rsa.pub
 
 >> Ensure the DNS (Domain Name Service) works fine:
 
@@ -85,8 +97,7 @@
 
 >> Get VPS project:
 
-    # git clone git@gitlab.com:ahs502/VPS.git; cd VPS/
-    VPS# npm i
+    # git clone git@gitlab.com:ahs502/VPS.git; cd VPS/; npm i
 
 >> Configure Bind9 and Nginx: (Within the 'VPS/' folder)
 

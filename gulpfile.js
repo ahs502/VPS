@@ -1,12 +1,6 @@
 var childProcess = require('child_process');
-
+var fs = require("fs");
 var gulp = require("gulp");
-var util = require("gulp-util");
-var concat = require('gulp-concat');
-var gprint = require('gulp-print');
-var merge = require("merge-stream");
-var file = require("gulp-file");
-var shell = require("gulp-shell");
 
 /*var colors =*/
 require('colors');
@@ -93,42 +87,36 @@ gulp.task('bind9', callback => {
 
     //TODO: What about '/etc/resolv.conf' ? It needs some R&D !
 
-    var streams = [file('named.conf.local', named_conf_local, {
-            src: true
-        })
-        .pipe(gulp.dest('/etc/bind/'))
-        .pipe(gprint(file => ' -> [' + 'bind9'.blue + '] ' + file + ' has been saved.'.green))
-    ];
+    fs.writeFileSync('/etc/bind/named.conf.local', named_conf_local);
+    console.log('            -> [' + 'bind9'.blue + '] ' + '/etc/bind/named.conf.local'.yellow + ' has been saved.'.green);
+
+    if (!fs.existsSync('/etc/bind/zones')) {
+        fs.mkdirSync('/etc/bind/zones');
+    }
 
     for (var zoneFile in zone_db) {
-        streams.push(file(zoneFile, zone_db[zoneFile], {
-                src: true
-            })
-            .pipe(gulp.dest('/etc/bind/zones/'))
-            .pipe(gprint(file => ' -> [' + 'bind9'.blue + '] ' + file + ' has been saved.'.green)));
-    };
+        fs.writeFileSync('/etc/bind/zones/' + zoneFile, zone_db[zoneFile]);
+        console.log('            -> [' + 'bind9'.blue + '] ' + ('/etc/bind/zones/' + zoneFile).yellow + ' has been saved.'.green);
+    }
 
-    return merge.apply(this, streams)
-        .pipe(concat('dumb.file'))
-        .pipe(shell([
-            "./bin/bind9-zone-serial-update.sh",
-            "/etc/init.d/bind9 restart"
-        ], {
-            quiet: true
-        }))
-        .on('end', () => {
-            util.log(' => [' + 'bind9'.bold.blue + '] ' + 'Route servers have been set.'.green);
-            util.log(' -> [' + 'bind9'.bold.blue + '] ' + 'Use the following commands to check the results :');
-            util.log('            tail -f /var/log/syslog'.bold.cyan + '   It should contain no errors !'.gray);
-            util.log('            nslookup '.bold.cyan + 'domain.ir'.cyan + '        Check domain zone for every domain,'.gray);
-            util.log('            host '.bold.cyan + 'xx.xx.xx.xx'.cyan + '          Check reverse zone.'.gray);
+    childProcess.exec("./bin/bind9-zone-serial-update.sh", function(error, stdout, stderr) {
+        if (error) return callback(error);
+        childProcess.exec("/etc/init.d/bind9 restart", function(error, stdout, stderr) {
+            if (error) return callback(error);
+            console.log('            => [' + 'bind9'.bold.blue + '] ' + 'Route servers have been set.'.green);
+            console.log('            -> [' + 'bind9'.bold.blue + '] ' + 'Use the following commands to check the results :');
+            console.log('                       tail -f /var/log/syslog'.bold.cyan + '   It should contain no errors !'.gray);
+            console.log('                       nslookup '.bold.cyan + 'domain.ir'.cyan + '        Check domain zone for every domain,'.gray);
+            console.log('                       host '.bold.cyan + 'xx.xx.xx.xx'.cyan + '          Check reverse zone.'.gray);
+            callback();
         });
+    });
 });
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
-gulp.task('nginx', () => {
-    util.log(" -> [" + 'nginx'.yellow + "] Configuring nginx on your server...");
+gulp.task('nginx', callback => {
+    console.log("            -> [" + 'nginx'.yellow + "] Configuring nginx on your server...");
 
     /*
     config.nginx := {
@@ -228,32 +216,31 @@ gulp.task('nginx', () => {
             "\n";
     }
 
-    return file('default', data, {
-            src: true
-        })
-        .pipe(gulp.dest('/etc/nginx/sites-available/'))
-        .pipe(shell([
-            "sudo service nginx start",
-            "sudo nginx -s reload"
-        ], {
-            quiet: true
-        }))
-        .on('end', () => util.log(' => [' + 'nginx'.bold.yellow + '] ' + 'Route servers have been set.'.green));
+    fs.writeFileSync('/etc/nginx/sites-available/default', data);
+
+    childProcess.exec("sudo service nginx start", function(error, stdout, stderr) {
+        if (error) return callback(error);
+        childProcess.exec("sudo nginx -s reload", function(error, stdout, stderr) {
+            if (error) return callback(error);
+            console.log('            => [' + 'nginx'.bold.yellow + '] ' + 'Route servers have been set.'.green);
+            callback();
+        });
+    });
 });
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
-gulp.task('default', ['bind9', 'nginx']);
+gulp.task('default', gulp.series('bind9', 'nginx'));
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
-gulp.task('no-https', done => {
+gulp.task('no-https', callback => {
     Object.keys(config.nginx.https).forEach(httpsDomain => config.nginx.http[httpsDomain] = config.nginx.https[httpsDomain][0]);
     config.nginx.https = {};
-    done();
+    callback();
 });
 
-gulp.task('ns', ['no-https', 'default']);
+gulp.task('ns', gulp.series('no-https', 'default'));
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
@@ -334,7 +321,7 @@ gulp.task('help', callback => {
 
 // gulp.task('start-1', callback => {
 //     runSequence('build-app');
-//     util.log(" => Type 'gulp help' for more information.".bold);
+//     //util.log(" => Type 'gulp help' for more information.".bold);
 //     callback(); // Nothing !
 // });
 
@@ -342,7 +329,7 @@ gulp.task('help', callback => {
 
 // gulp.task('start-2', ['start-1'], callback => {
 //     runSequence('build-src');
-//     util.log(" => Type 'gulp help' for more information.".bold);
+//     //util.log(" => Type 'gulp help' for more information.".bold);
 //     callback(); // Nothing !
 // });
 
@@ -350,7 +337,7 @@ gulp.task('help', callback => {
 
 // gulp.task('start-3', ['start-2'], callback => {
 //     runSequence('start-node');
-//     util.log(" => Type 'gulp help' for more information.".bold);
+//     //util.log(" => Type 'gulp help' for more information.".bold);
 //     callback(); // Nothing !
 // });
 
@@ -358,7 +345,7 @@ gulp.task('help', callback => {
 
 // gulp.task('start-4', ['start-3'], callback => {
 //     runSequence('watch');
-//     util.log(" => Type 'gulp help' for more information.".bold);
+//     //util.log(" => Type 'gulp help' for more information.".bold);
 //     callback(); // Nothing !
 // });
 
@@ -366,6 +353,6 @@ gulp.task('help', callback => {
 
 // gulp.task('start-5', ['start-4'], callback => {
 //     runSequence('browser-sync');
-//     util.log(" => Type 'gulp help' for more information.".bold);
+//     //util.log(" => Type 'gulp help' for more information.".bold);
 //     callback(); // Nothing !
 // });

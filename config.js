@@ -1,7 +1,7 @@
 var config = {
 
     /* Server IP address */
-    serverIp: "148.251.222.18",
+    serverIp: "5.135.170.199",
 
     // /*
     // Local port to run Node.js server on for development, 12345 by default.

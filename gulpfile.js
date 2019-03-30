@@ -88,7 +88,7 @@ gulp.task('bind9', callback => {
     //TODO: What about '/etc/resolv.conf' ? It needs some R&D !
 
     fs.writeFileSync('/etc/bind/named.conf.local', named_conf_local);
-    console.log('            -> [' + 'bind9'.blue + '] ' + '/etc/bind/named.conf.local'.yellow + ' has been saved.'.green);
+    console.log('-> [' + 'bind9'.blue + '] ' + '/etc/bind/named.conf.local'.yellow + ' has been saved.'.green);
 
     if (!fs.existsSync('/etc/bind/zones')) {
         fs.mkdirSync('/etc/bind/zones');
@@ -96,18 +96,18 @@ gulp.task('bind9', callback => {
 
     for (var zoneFile in zone_db) {
         fs.writeFileSync('/etc/bind/zones/' + zoneFile, zone_db[zoneFile]);
-        console.log('            -> [' + 'bind9'.blue + '] ' + ('/etc/bind/zones/' + zoneFile).yellow + ' has been saved.'.green);
+        console.log('-> [' + 'bind9'.blue + '] ' + ('/etc/bind/zones/' + zoneFile).yellow + ' has been saved.'.green);
     }
 
     childProcess.exec("./bin/bind9-zone-serial-update.sh", function(error, stdout, stderr) {
         if (error) return callback(error);
         childProcess.exec("/etc/init.d/bind9 restart", function(error, stdout, stderr) {
             if (error) return callback(error);
-            console.log('            => [' + 'bind9'.bold.blue + '] ' + 'Route servers have been set.'.green);
-            console.log('            -> [' + 'bind9'.bold.blue + '] ' + 'Use the following commands to check the results :');
-            console.log('                       tail -f /var/log/syslog'.bold.cyan + '   It should contain no errors !'.gray);
-            console.log('                       nslookup '.bold.cyan + 'domain.ir'.cyan + '        Check domain zone for every domain,'.gray);
-            console.log('                       host '.bold.cyan + 'xx.xx.xx.xx'.cyan + '          Check reverse zone.'.gray);
+            console.log('=> [' + 'bind9'.bold.blue + '] ' + 'Route servers have been set.'.green);
+            console.log('-> [' + 'bind9'.bold.blue + '] ' + 'Use the following commands to check the results :');
+            console.log('           tail -f /var/log/syslog'.bold.cyan + '   It should contain no errors !'.gray);
+            console.log('           nslookup '.bold.cyan + 'domain.ir'.cyan + '        Check domain zone for every domain,'.gray);
+            console.log('           host '.bold.cyan + 'xx.xx.xx.xx'.cyan + '          Check reverse zone.'.gray);
             callback();
         });
     });
@@ -116,7 +116,7 @@ gulp.task('bind9', callback => {
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
 gulp.task('nginx', callback => {
-    console.log("            -> [" + 'nginx'.yellow + "] Configuring nginx on your server...");
+    console.log("-> [" + 'nginx'.yellow + "] Configuring nginx on your server...");
 
     /*
     config.nginx := {
@@ -222,7 +222,7 @@ gulp.task('nginx', callback => {
         if (error) return callback(error);
         childProcess.exec("sudo nginx -s reload", function(error, stdout, stderr) {
             if (error) return callback(error);
-            console.log('            => [' + 'nginx'.bold.yellow + '] ' + 'Route servers have been set.'.green);
+            console.log('=> [' + 'nginx'.bold.yellow + '] ' + 'Route servers have been set.'.green);
             callback();
         });
     });

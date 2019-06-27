@@ -11,6 +11,12 @@
     # adduser hessam
     # usermod -aG sudo hessam
 
+>> Change SSH port if needed:
+
+    # nano /etc/ssh/sshd_config
+    -> Change the line "Port ???".
+    # service sshd restart
+
 >> Upgrade Ubuntu packages:
 
     # apt update; apt upgrade -y
@@ -39,9 +45,9 @@
        to increase the size limit for file upload (depend on your application requirements)
     # service nginx restart
 
->> Install Node.js (11.x for now): (JavabAzmayesh project is only supported by older versions of nodejs, for example 9.x)
+>> Install Node.js (12.x for now): (JavabAzmayesh project is only supported by older versions of nodejs, for example 9.x)
 
-    # curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -
+    # curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
     # apt-get install -y nodejs gcc g++ make && node -v
 
 >> Install some global NPM packages:
@@ -64,7 +70,7 @@
     -> See: https://github.com/c9/core/
     # git clone https://github.com/c9/core.git c9sdk && cd c9sdk && scripts/install-sdk.sh
     -> To update to the latest version:
-    # git pull origin master && scripts/install-sdk.sh
+    c9sdk# git pull origin master && scripts/install-sdk.sh
 
 >> Run Cloud9 forever:
 
@@ -97,7 +103,7 @@
 
 >> Get VPS project:
 
-    # git clone git@gitlab.com:ahs502/VPS.git; cd VPS/; npm i
+    # git clone git@github.com:ahs502/VPS.git; cd VPS/; npm i
 
 >> Configure Bind9 and Nginx: (Within the 'VPS/' folder)
 
@@ -143,8 +149,11 @@
 
     # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
     # ~/.dropbox-dist/dropboxd
+    -> You may need to follow the provided link to add this device to your Dropbox account.
     -> It will run Dropbox and make Dropbox folder, but stops by Ctrl+C. To install Dropbox cli:
-    # wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py" && chmod +x /usr/local/bin/dropbox
+    # wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py" && chmod +x 
+
+/usr/local/bin/dropbox
     # dropbox start
     # dropbox status
     -> To make it run forever, create this file:
@@ -222,7 +231,6 @@ WantedBy=multi-user.target
     # pm2 start ~/ahs502/prayers-counter/bin/www -n mn
     ...
     # pm2 save
-
 
 
 

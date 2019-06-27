@@ -34,8 +34,8 @@ var config = {
             // root: "host",
             subdomains: [
                 "www", "ide", "dev", "bs", "weinre", "test",
-                "neo4j", "ng", "ws", "tejarat",
-                "shop", "eco", "mn", "yad",
+                //"neo4j", "ng", "ws", "tejarat",
+                //"shop", "eco", "mn", "yad",
             ],
             // data: {
             //     "ns1": "A",
@@ -47,13 +47,13 @@ var config = {
             // }
         },
 
-        "javabazmayesh.ir": {
-            subdomains: ["www", "dev", "test", "demo"]
-        },
+        //"javabazmayesh.ir": {
+        //    subdomains: ["www", "dev", "test", "demo"]
+        //},
 
-        "aipaco.ir": {
-            subdomains: ["www", "test"]
-        },
+        //"aipaco.ir": {
+        //    subdomains: ["www", "test"]
+        //},
 
     },
 
@@ -98,34 +98,34 @@ var config = {
             "ide.ahs502.ir": 8080,
             "test.ahs502.ir": 8019,
 
-            "neo4j.ahs502.ir": 7474,
-            "ng.ahs502.ir": 4203,
-            "ws.ahs502.ir": 5541,
-            "tejarat.ahs502.ir": 4964,
+            //"neo4j.ahs502.ir": 7474,
+            //"ng.ahs502.ir": 4203,
+            //"ws.ahs502.ir": 5541,
+            //"tejarat.ahs502.ir": 4964,
 
-            "shop.ahs502.ir": 6871,
-            "eco.ahs502.ir": 6872,
-            "mn.ahs502.ir": 6873,
-            "yad.ahs502.ir": 6874,
+            //"shop.ahs502.ir": 6871,
+            //"eco.ahs502.ir": 6872,
+            //"mn.ahs502.ir": 6873,
+            //"yad.ahs502.ir": 6874,
 
-            "dev.javabazmayesh.ir": 50304,
-            "test.javabazmayesh.ir": 50307,
+            //"dev.javabazmayesh.ir": 50304,
+            //"test.javabazmayesh.ir": 50307,
 
-            "aipaco.ir": 18010,
-            "test.aipaco.ir": 18019,
+            //"aipaco.ir": 18010,
+            //"test.aipaco.ir": 18019,
         },
 
         https: {
-            "javabazmayesh.ir": [
-                50310,
-                "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
-                "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
-            ],
-            "demo.javabazmayesh.ir": [
-                50309,
-                "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
-                "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
-            ],
+            //"javabazmayesh.ir": [
+            //    50310,
+            //    "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
+            //    "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
+            //],
+            //"demo.javabazmayesh.ir": [
+            //    50309,
+            //    "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",
+            //    "/etc/letsencrypt/live/javabazmayesh.ir/fullchain.pem"
+            //],
         },
 
         // /*

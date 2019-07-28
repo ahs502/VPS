@@ -99,7 +99,7 @@
 
 >> Configure git:
 
-    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessam A Shokravi"
+    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessamoddin A Shokravi"
 
 >> Get VPS project:
 

@@ -1,0 +1,25 @@
+On client:
+
+    Install VS Code.
+
+    Install "Remote Development" extension pack for VS Code.
+
+    Install an OpenSSH compatible SSH client if one is not already present. See & download from: https://code.visualstudio.com/docs/remote/troubleshooting#_installing-a-supported-ssh-client
+
+On server:
+
+    Configure key based authentication on the host. Follow these steps: https://code.visualstudio.com/docs/remote/troubleshooting#_configuring-key-based-authentication
+        To create a public SSH key on the local machine and copy its contents to the remote host.
+
+On client:
+
+    If you have previously connected to another host with the same domain name, first remove it from the .ssh/known_hosts in the client device under the user's folder.
+    
+On VS Code: 
+
+    Press (F1) and run this command: ">Remote-SSH: Connect Current Window to Host...".
+    
+    Go to extension tab and install already installed extensions on host too.
+    
+    Open remote settings and modify it if required, for example activate format on save.
+    

@@ -35,7 +35,7 @@
 
 >> Install some Debian packages:
 
-    # apt-get update && apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip
+    # apt-get update && apt-get install -y build-essential python2.7 bind9 nginx nano zip unzip curl
 
 >> Pre-config Nginx:
 
@@ -52,7 +52,7 @@
 
 >> Install some global NPM packages:
 
-    # npm install -g bower gulp pm2 express-generator
+    # npm install -g bower gulp pm2 express-generator create-react-app
 
 >> Setup PM2 on system startup:
 
@@ -64,6 +64,11 @@
     -> If it is not correct, find your time zone and set it
     # timedatectl list-timezones
     # timedatectl set-timezone Asia/Tehran
+
+>> Install & configure git:
+
+    # apt install -y git
+    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessamoddin A Shokravi"
 
 >> Install Cloud9:
 
@@ -97,10 +102,6 @@
     # /etc/init.d/networking restart
     -> If still 'ping' or 'nslookup' can not resolve a domain, reboot the server.
 
->> Configure git:
-
-    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessamoddin A Shokravi"
-
 >> Get VPS project:
 
     # git clone git@github.com:ahs502/VPS.git; cd VPS/; npm i
@@ -124,6 +125,7 @@
 
 >> Make SSL certificates with certbot: (See: https://certbot.eff.org/#ubuntuxenial-nginx)
 
+    # apt install -y software-properties-common
     -> Install certbot:
     # add-apt-repository ppa:certbot/certbot
     # apt-get update
@@ -151,9 +153,7 @@
     # ~/.dropbox-dist/dropboxd
     -> You may need to follow the provided link to add this device to your Dropbox account.
     -> It will run Dropbox and make Dropbox folder, but stops by Ctrl+C. To install Dropbox cli:
-    # wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py" && chmod +x 
-
-/usr/local/bin/dropbox
+    # wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py" && chmod +x /usr/local/bin/dropbox
     # dropbox start
     # dropbox status
     -> To make it run forever, create this file:

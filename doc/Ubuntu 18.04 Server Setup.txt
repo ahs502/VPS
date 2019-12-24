@@ -15,13 +15,12 @@
 
     # nano /etc/ssh/sshd_config
     -> Change the line "Port ???".
+    -> DO IT FOR SECURITY REASONS, TO SOME PORT OTHER THAN 22.
     # service sshd restart
 
 >> Upgrade Ubuntu packages:
 
-    # apt update; apt upgrade -y
-    # apt dist-upgrade
-    # apt autoremove
+    # apt update && apt upgrade -y && apt dist-upgrade && apt autoremove -y
 
 >> Upgrade Ubuntu version:
 
@@ -45,14 +44,14 @@
        to increase the size limit for file upload (depend on your application requirements)
     # service nginx restart
 
->> Install Node.js (12.x for now): (JavabAzmayesh project is only supported by older versions of nodejs, for example 9.x)
+>> Install Node.js (13.x for now):
 
-    # curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    # curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
     # apt-get install -y nodejs gcc g++ make && node -v
 
 >> Install some global NPM packages:
 
-    # npm install -g bower gulp pm2 express-generator create-react-app
+    # npm install -g gulp pm2 express-generator create-react-app
 
 >> Setup PM2 on system startup:
 
@@ -67,13 +66,12 @@
 
 >> Install & configure git:
 
-    # apt install -y git
-    # git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessamoddin A Shokravi"
+    # apt install -y git && git config --global user.email "ahs502@gmail.com"; git config --global user.name "Hessamoddin A Shokravi"
 
 >> Install Cloud9:
 
     -> See: https://github.com/c9/core/
-    # git clone https://github.com/c9/core.git c9sdk && cd c9sdk && scripts/install-sdk.sh
+    # git clone https://github.com/c9/core.git c9sdk && cd c9sdk && scripts/install-sdk.sh; cd
     -> To update to the latest version:
     c9sdk# git pull origin master && scripts/install-sdk.sh
 
@@ -85,14 +83,13 @@
     # pm2 list
     # pm2 logs c9
     -> If it has the error "Error: Cannot find module 'c9/urls'" maybe this would fix the problem:
-    # cd c9sdk; git reset --hard; cd
+    # cd c9sdk && git reset --hard; cd
 
 >> Create a new SSH key and add it to remote repository service's account:
 
     -> See: https://help.github.com/articles/connecting-to-github-with-ssh/
     # ssh-keygen -t rsa -b 4096 -C "ahs502@gmail.com"
-    # eval $(ssh-agent -s); ssh-add ~/.ssh/id_rsa
-    # cat .ssh/id_rsa.pub
+    # eval $(ssh-agent -s) && ssh-add ~/.ssh/id_rsa && cat .ssh/id_rsa.pub
 
 >> Ensure the DNS (Domain Name Service) works fine:
 
@@ -104,7 +101,7 @@
 
 >> Get VPS project:
 
-    # git clone git@github.com:ahs502/VPS.git; cd VPS/; npm i
+    # git clone git@github.com:ahs502/VPS.git && cd VPS/ && npm i
 
 >> Configure Bind9 and Nginx: (Within the 'VPS/' folder)
 
@@ -116,7 +113,7 @@
     VPS# gulp ns
     -> Then you are able to make SSL certificates, and after that run "gulp" again
        to apply those certificates to the domains.
-    VPS# cd
+    VPS# cd ..
 
 >> Add '~/VPS/bin' to PATH:
 

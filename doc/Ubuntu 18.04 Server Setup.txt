@@ -108,17 +108,18 @@
     VPS# nano config.js
     -> Configure the settings.
     -> If there are not any domains with https protocol then run:
-    VPS# gulp
+    VPS# npm run config
     -> Otherwise, run this so you can make SSL certificates later:
-    VPS# gulp ns
-    -> Then you are able to make SSL certificates, and after that run "gulp" again
+    VPS# npm run config:ns
+    -> Then you are able to make SSL certificates, and after that run "npm run config" again
        to apply those certificates to the domains.
     VPS# cd ..
 
 >> Add '~/VPS/bin' to PATH:
 
+    -> Do this for users other than root too:
     # echo 'export PATH="/root/VPS/bin:$PATH"' >> ~/.bashrc
-    # source ~/.bashrc   # Opional, you can alse restart terminal
+    # source ~/.bashrc   # Opional, you can also restart terminal
 
 >> Make SSL certificates with certbot: (See: https://certbot.eff.org/#ubuntuxenial-nginx)
 
@@ -134,7 +135,7 @@
     -> Create certificates: (You may use 'standalone' mode, make sure to set the websites' name servers before)
     # certbot certonly
     -> Or simply: (You may specify some other domains)
-    # certbot certonly --standalone -d javabazmayesh.ir -d www.javabazmayesh.ir -d demo.javabazmayesh.ir
+    # certbot certonly --standalone -d ahs502.ir -d www.ahs502.ir
 
     -> You can turn on enginx again:
     # service nginx start
@@ -187,10 +188,12 @@ WantedBy=multi-user.target
 >> Setup periodic auto-backup data folders into the Dropbox:
 
     -> Create the backup folder if not exists:
-    # mkdir /root/Dropbox/backup
-    -> Add periodic tasks to the file /etc/crontab:
+    # mkdir /root/Dropbox/ahs502.ir && mkdir /root/Dropbox/ahs502.ir/data
+    -> Add periodic tasks to the file /etc/crontab (The other lines are just examples, no need to copy them):
     # nano /etc/crontab
 --------------------------------------------------------------------------------
+@hourly root rsync -av --delete /root/ahs502/apps/data/ /root/Dropbox/ahs502/data
+
 @hourly root rsync -av --delete /root/ahs502/balance-statistics/data/ Dropbox/backup/eco
 @hourly root rsync -av --delete /root/ahs502/online-shopping-list/data/ Dropbox/backup/shop
 @hourly root rsync -av --delete /root/ahs502/prayers-counter/data/ Dropbox/backup/mn
@@ -199,6 +202,13 @@ WantedBy=multi-user.target
 @daily root rsync -av --delete /root/sites/javab-azmayesh/live/files Dropbox/backup/ja/files
 --------------------------------------------------------------------------------
     -> Save the file, all done.
+
+>> Get ahs502.ir project:
+
+    # mkdir ahs502 && cd ahs502 && git clone git@github.com:ahs502/apps.git && npm install --prefix apps && cd
+    -> Start the server (Use the same port you've set in VPS/config.js for 'ahs502.ir'):
+    # PORT=8010 pm2 start -n ahs502 npm -- start --prefix ~/ahs502/apps
+    # pm2 save
 
 >> Transport other files to the new server:
 

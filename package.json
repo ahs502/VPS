@@ -1,6 +1,11 @@
 {
   "name": "VPS",
-  "scripts": {},
+  "scripts": {
+    "bind9": "gulp bind9",
+    "nginx": "gulp nginx",
+    "config": "gulp",
+    "config:ns": "gulp ns"
+  },
   "version": "0.0.0",
   "private": true,
   "dependencies": {

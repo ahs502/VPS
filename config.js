@@ -1,7 +1,7 @@
 var config = {
 
     /* Server IP address */
-    serverIp: "46.4.233.51",
+    serverIp: "46.4.233.52",
 
     // /*
     // Local port to run Node.js server on for development, 12345 by default.
@@ -33,7 +33,7 @@ var config = {
             // mail: "mail",
             // root: "host",
             subdomains: [
-                "www", "ide", "dev", "bs", "weinre", "test",
+                "www", "ide", "test",
                 //"neo4j", "ng", "ws", "tejarat",
                 //"shop", "eco", "mn", "yad",
             ],
@@ -94,7 +94,7 @@ var config = {
     nginx: {
 
         http: {
-            "ahs502.ir": 8010,
+            //"ahs502.ir": 8010,
             "ide.ahs502.ir": 8080,
             "test.ahs502.ir": 8019,
 
@@ -116,6 +116,11 @@ var config = {
         },
 
         https: {
+            "ahs502.ir": [
+                8010,
+                "/etc/letsencrypt/live/ahs502.ir/privkey.pem",
+                "/etc/letsencrypt/live/ahs502.ir/fullchain.pem"
+            ],
             //"javabazmayesh.ir": [
             //    50310,
             //    "/etc/letsencrypt/live/javabazmayesh.ir/privkey.pem",

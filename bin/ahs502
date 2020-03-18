@@ -1,0 +1,11 @@
+#!/bin/bash
+
+AHS502=/root/ahs502/apps
+
+pm2 stop ahs502
+
+git -C "$AHS502" pull origin master
+
+npm install --prefix "$AHS502"
+
+pm2 start ahs502

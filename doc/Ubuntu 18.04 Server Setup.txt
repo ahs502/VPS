@@ -209,6 +209,9 @@ WantedBy=multi-user.target
     -> Start the server (Use the same port you've set in VPS/config.js for 'ahs502.ir'):
     # PORT=8010 pm2 start -n ahs502 npm -- start --prefix ~/ahs502/apps
     # pm2 save
+    
+    -> In order to update ahs502.ir:
+    # ahs502
 
 >> Transport other files to the new server:
 

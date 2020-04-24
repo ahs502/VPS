@@ -192,7 +192,7 @@ WantedBy=multi-user.target
     -> Add periodic tasks to the file /etc/crontab (The other lines are just examples, no need to copy them):
     # nano /etc/crontab
 --------------------------------------------------------------------------------
-@hourly root rsync -av --delete /root/ahs502/apps/data/ /root/Dropbox/ahs502/data
+@hourly root rsync -av --delete /root/ahs502/apps/data/ /root/Dropbox/ahs502.ir/data
 
 @hourly root rsync -av --delete /root/ahs502/balance-statistics/data/ Dropbox/backup/eco
 @hourly root rsync -av --delete /root/ahs502/online-shopping-list/data/ Dropbox/backup/shop

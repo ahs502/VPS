@@ -145,6 +145,10 @@
     -> Or this combination:
     # service nginx stop && certbot renew --dry-run && service nginx start
     
+    -> In case of forgetting to renew, and expiring the certificates, simply delete them and generate them again:
+    # certbot delete   # Then select the domain, or:
+    # certbot delete --cert-name ahs502.ir
+    
 >> Setup Dropbox service:
 
     # cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
